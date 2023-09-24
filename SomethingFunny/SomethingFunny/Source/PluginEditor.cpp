@@ -22,7 +22,7 @@ SomethingFunnyAudioProcessorEditor::SomethingFunnyAudioProcessorEditor (Somethin
     midiVolume.setPopupDisplayEnabled (true, false, this);
     midiVolume.setTextValueSuffix (" Volume");
     midiVolume.setValue(1.0);
-    
+    midiVolume.addListener (this);
     addAndMakeVisible (&midiVolume);
 }
 
@@ -46,4 +46,9 @@ void SomethingFunnyAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     midiVolume.setBounds (40, 30, 20, getHeight() - 60);
+}
+
+void SomethingFunnyAudioProcessorEditor::sliderValueChanged (juce::Slider* slider)
+{
+    audioProcessor.noteOnVel = midiVolume.getValue();   
 }
